@@ -1,4 +1,4 @@
-#/usr/bin/python
+#!/usr/bin/python
 ##Cloudflare DDNS (dynamic dns) updater script for non-static ips :)
 ##it updates cloudflare records on a specified zone and subdomain with your current ip (i use it for a home server)
 import urllib2
