@@ -20,6 +20,8 @@ ONLYSSIDS = [
   "adita"
 ]
 
+TMPFILENAME = "/tmp/lastip"
+
 ssid = commands.getstatusoutput("/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'")[1]
 
 found = True
@@ -32,6 +34,13 @@ if False == found:
   exit(0)
 
 myip = urllib2.urlopen("https://wtfismyip.com/text").read().rstrip('\n')
+target = open(TMPFILENAME, 'rw+')
+lastip = target.read()
+if myip == lastip:
+  target.close()
+  exit(0)
+target.write(myip)
+target.close()
 
 def getJSONrecords():
   API_REQUEST = "https://www.cloudflare.com/api_json.html?a=rec_load_all&tkn="+API_KEY+"&email="+EMAIL+"&z="+ZONE
